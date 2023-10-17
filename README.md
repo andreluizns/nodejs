@@ -1,2 +1,2 @@
 # node
-códigos referentes ao node
+scripts referentes ao node
