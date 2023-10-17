@@ -5,14 +5,14 @@ INSTALAÇÃO WINDOWS:
 - Baixar a versão LTS
 
 Verificar versão do Node no Prompt
-node --version
+- node --version
 
 Verificar versão NPM no Prompt 
-npm --version
+- npm --version
 
 Iniciando um aplicação:
-mkdir nodeApp  
-cd nodeApp  
-npm init
+- mkdir nodeApp  
+- cd nodeApp  
+- npm init
 
 
