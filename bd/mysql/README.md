@@ -1,4 +1,4 @@
-#conexão com o mysql
+# conexão com o mysql
 
 npm init -y
 
