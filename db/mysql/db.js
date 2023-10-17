@@ -5,10 +5,10 @@ async function connect(){
     const mysql = require("mysql2/promise");
     var config =
     {
-        host: 'mydemoserver.mysql.database.azure.com',
-        user: 'myadmin@mydemoserver',
-        password: 'your_password',
-        database: 'quickstartdb',
+        host: 'localhost',
+        user: 'user',
+        password: 'password',
+        database: 'db',
         port: 3306
     };
     const connection = await mysql.createConnection(config);
