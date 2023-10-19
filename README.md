@@ -10,7 +10,7 @@ Verificar versão do Node no Prompt
 Verificar versão NPM no Prompt 
 - npm --version
 
-Iniciando um aplicação:
+Iniciando uma aplicação:
 - mkdir nodeApp  
 - cd nodeApp  
 - npm init
