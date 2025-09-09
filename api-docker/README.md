@@ -1,10 +1,11 @@
-# apifastify
+# api-docker
 
 insere, consulta registros através da api
 
-a) é utilizado o framework fastify para o desenvolvimento do servidor.
+a) é utilizado o ORM Drizzle para a interação com o banco de dados.
 
-- npm i fastify
+- npm i drizzle-kit -D
+- npm i drizzle-orm pg
 
 b) é utilizada a extensão REST Client no VSCode para verificar os requests na api
 
