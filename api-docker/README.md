@@ -18,3 +18,5 @@ reiniciar o typescript: CTRL + SHIFT + P e selecionar TypeScript: Restart TS Ser
 
 no arquivo package.json, alterar para a linha abaixo caso dê erro
 "dev": "node --watch --experimental-strip-types server.ts"
+
+npm i pino-pretty
