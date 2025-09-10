@@ -1,10 +1,8 @@
-import fastify from "fastify";
+//const crypto = require("crypto");
+//const fastify = require("fastify");
 
 import crypto from "node:crypto";
-
-import { db } from "./src/database/client.ts";
-
-import { courses } from "./src/database/schema.ts";
+import fastify from "fastify";
 
 const server = fastify({
   logger: {
@@ -18,71 +16,48 @@ const server = fastify({
   },
 });
 
-server.get("/courses", async (request, response) => {
-  const result = await db.select().from(courses);
-  // sempre retorne um objeto
-  return response.send({ result });
+const courses = [
+  { id: "1", name: "Node.js" },
+  { id: "2", name: "React" },
+  { id: "3", name: "React Native" },
+];
+
+server.get("/courses", async (request, reply) => {
+  return { courses };
 });
 
-/*
-server.post("/courses", (request, response) => {
-  type Body = {
-    id: string;
-    title: string;
-  };
-
-  const coursesID = crypto.randomUUID();
-  const body = request.body as Body;
-
-  if (!body) {
-    return response.status(400).send("O título é obrigatório");
-  }
-
-  courses.push({ id: coursesID, title: body.title });
-
-  // sempre retorne um objeto
-  return response.status(201).send({ courses });
-});
-
-
-server.get("/courses/:id", (request, response) => {
+server.get("/courses/:id", async (request, reply) => {
   type Params = {
     id: string;
   };
-
-  const Params = request.params as Params;
-  const courseID = Params.id;
-
+  const params = request.params as Params;
+  const courseID = params.id;
   const course = courses.find((course) => course.id === courseID);
 
-  if (course) {
-    return { course };
+  if (!course) {
+    return reply.code(404).send({ message: "Curso não encontrado!" });
   }
-
-  response.status(404).send("Registro não encontrado!");
+  return { course };
 });
 
-server.post("/courses", (request, response) => {
+server.post("/courses", async (request, reply) => {
   type Body = {
-    id: string;
     title: string;
   };
-
-  const courseID = crypto.randomUUID();
   const body = request.body as Body;
-
+  const courseID = crypto.randomUUID();
   const courseTitle = body.title;
 
-  if (courseTitle) {
-    return response.status(400).send("O título é obrigatório");
+  if (!courseTitle) {
+    return reply
+      .code(400)
+      .send({ message: "O título do curso é obrigatório!" });
   }
 
-  courses.push({ id: courseID, title: courseTitle });
-
-  return response.status(201).send({ courseID });
+  courses.push({ id: courseID, name: courseTitle });
+  reply.code(201).send({ courses });
 });
-*/
 
-server.listen({ port: 3333 }).then(() => {
-  console.log("server is running with docker and drizzle orm");
+server.listen({ port: 3000 }).then(() => {
+  console.log("Server is running on http://localhost:3000");
 });

@@ -1,13 +1,15 @@
-POST http://localhost:3333/courses
+GET http://localhost:3000/courses
+
+###
+
+POST http://localhost:3000/courses
 Content-Type: application/json
+
 {
-    "title": "Api com fastify",
+    "title": "Curso de Fastify"
 }
 
 ###
 
-GET http://localhost:3333/courses
-
-###
-
-GET http://localhost:3333/courses/4
+GET http://localhost:3000/courses/5
+  
