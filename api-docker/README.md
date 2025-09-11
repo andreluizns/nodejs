@@ -1,5 +1,7 @@
 # api-docker
 
+uma api documentada desenvolvida com node, fastify e drizzle orm.
+
 npm init -y
 
 npm i fastify
@@ -20,3 +22,19 @@ no arquivo package.json, alterar para a linha abaixo caso dê erro
 "dev": "node --watch --experimental-strip-types server.ts"
 
 npm i pino-pretty
+
+npm install dotenv
+
+docker compose up -d
+
+npm i drizzle-kit -D
+
+npm i drizzle-orm pg
+
+npm i zod fastify-provider-zod
+
+npm i @fastify/swagger
+
+npm i @fastify/swagger-ui
+
+http://localhost:3333/docs

@@ -1,7 +1,8 @@
 POST http://localhost:3333/courses
 Content-Type: application/json
+
 {
-    "title": "Api com fastify",
+  "title": "Curso de Node.js"
 }
 
 ###
@@ -10,4 +11,4 @@ GET http://localhost:3333/courses
 
 ###
 
-GET http://localhost:3333/courses/4
+GET http://localhost:3333/courses/ba59f2df-bc67-405d-bf34-872137d7e483

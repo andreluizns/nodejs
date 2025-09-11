@@ -1,12 +1,16 @@
-
+import { fastifySwagger } from "@fastify/swagger";
+import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import fastify from "fastify";
+import {
+  validatorCompiler,
+  serializerCompiler,
+  type ZodTypeProvider,
+  jsonSchemaTransform,
+} from "fastify-type-provider-zod";
 
-import crypto from "node:crypto";
-
-const courses = [
-  { id: "1", title: "curso de react" },
-  { id: "2", title: "curso de react native" },
-];
+import { createCourseRoute } from "./src/routes/create-course.ts";
+import { getCourseRoute } from "./src/routes/get-courses.ts";
+import { getCourseByIdRoute } from "./src/routes/get-course-by-id.ts";
 
 const server = fastify({
   logger: {
@@ -18,50 +22,30 @@ const server = fastify({
       },
     },
   },
+}).withTypeProvider<ZodTypeProvider>();
+
+server.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: "API de Cursos",
+      description:
+        "API simples de cursos desenvolvida em Node.js, Fastify e Docker",
+      version: "1.0.0",
+    },
+  },
+  transform: jsonSchemaTransform,
 });
 
-server.get("/courses", () => {
-  // sempre retorne um objeto
-  return { courses };
+server.register(fastifySwaggerUi, {
+  routePrefix: "/docs",
 });
 
+server.setValidatorCompiler(validatorCompiler);
+server.setSerializerCompiler(serializerCompiler);
 
-server.get("/courses/:id", (request, response) => {
-  type Params = {
-    id: string;
-  };
-
-  const Params = request.params as Params;
-  const courseID = Params.id;
-
-  const course = courses.find((course) => course.id === courseID);
-
-  if (course) {
-    return { course };
-  }
-
-  response.status(404).send("Registro não encontrado!");
-});
-
-server.post("/courses", (request, response) => {
-  type Body = {
-    id: string;
-    title: string;
-  };
-
-  const courseID = crypto.randomUUID();
-  const body = request.body as Body;
-
-  const courseTitle = body.title;
-
-  if (courseTitle) {
-    return response.status(400).send("O título é obrigatório");
-  }
-
-  courses.push({ id: courseID, title: courseTitle });
-
-  return response.status(201).send({ courseID });
-});
+server.register(createCourseRoute);
+server.register(getCourseRoute);
+server.register(getCourseByIdRoute);
 
 server.listen({ port: 3333 }).then(() => {
   console.log("server is running with fastify");
